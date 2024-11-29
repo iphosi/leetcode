@@ -1,6 +1,7 @@
 # s = "aabaaf"
 # prefix_table = [0, 1, 0, 1, 2, 0]
 # prefix_table = [-1, 0, -1, 0, 1, -1]
+# prefix_table[i]: 以 s[i] 结尾的字符串中，相同前后缀的最大长度
 
 
 def get_prefix_table(s):

@@ -33,4 +33,6 @@ def quick_sort(nums, start, end):
 num_list = [2, 3, 4, 0, 9, 8, 7, 6]
 quick_sort(num_list, 0, len(num_list) - 1)
 
+print(num_list)
+
 pass

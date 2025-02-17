@@ -41,19 +41,22 @@ class Solution:
         topKs = self.findTopK(num_cnt, k, 0, len(num_cnt) - 1)
         return [item[0] for item in topKs]
 
-    def findTopK(self, num_cnt, k, low, high):
-        pivot = random.randint(low, high)
-        num_cnt[low], num_cnt[pivot] = num_cnt[pivot], num_cnt[low]
-        base = num_cnt[low][1]
-        i = low
-        for j in range(low + 1, high + 1):
-            if num_cnt[j][1] >= base:
-                num_cnt[i + 1], num_cnt[j] = num_cnt[j], num_cnt[i + 1]
-                i += 1
-        num_cnt[low], num_cnt[i] = num_cnt[i], num_cnt[low]
-        if i == k - 1:
+    def findTopK(self, num_cnt, k, start, end):
+        rand_idx = random.randint(start, end)
+        num_cnt[start], num_cnt[rand_idx] = num_cnt[rand_idx], num_cnt[start]
+
+        p = start
+        j = start + 1
+        for i in range(start + 1, end + 1):
+            if num_cnt[i][1] >= num_cnt[p][1]:
+                num_cnt[i], num_cnt[j] = num_cnt[j], num_cnt[i]
+                j += 1
+
+        num_cnt[p], num_cnt[j - 1] = num_cnt[j - 1], num_cnt[p]
+
+        if j == k:
             return num_cnt[:k]
-        elif i > k - 1:
-            return self.findTopK(num_cnt, k, low, i - 1)
+        elif j > k:
+            return self.findTopK(num_cnt, k, start, j - 2)
         else:
-            return self.findTopK(num_cnt, k, i + 1, high)
+            return self.findTopK(num_cnt, k, j, end)
